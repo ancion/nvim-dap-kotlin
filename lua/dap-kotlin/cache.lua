@@ -12,9 +12,7 @@ function M.cache_read()
     local logfile = io.open(M.settings.logfile, "r")
 
     if logfile then
-        local lines = logfile:lines()
-
-        for line in lines do
+        for line in logfile:lines() do
             local chunks = line:gmatch("[^=]+")
 
             local tb = {}
@@ -23,7 +21,7 @@ function M.cache_read()
             end
             M._cache[tb[1]] = tb[2]
         end
-        logfile:flush()
+        logfile:close()
     else
         local newFile = assert(io.open(M.settings.logfile, "w"))
         newFile:close()
